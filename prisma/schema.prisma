@@ -2,30 +2,41 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 // Necesary for planetscale MySql Database
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
-  relationMode = "prisma"
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
 }
 
-// Necesary for planetscale sqlite Database
-// datasource db {
-//     provider = "sqlite"
-//     // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-//     // Further reading:
-//     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-//     // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-//     url      = env("DATABASE_URL")
-// }
-
-model Example {
-    id        String   @id @default(cuid())
+model Tweet {
+    id        String   @id @default(uuid())
+    userId    String
+    content   String
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    likes     Like[]
+
+    // Relation Tweet - User
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([createdAt, id]) // identifier to be used for pagination (see tweet router)
+    @@index([userId])
+}
+
+model Like {
+    userId  String
+    tweetId String
+    user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    tweet   Tweet  @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+
+    // Since a user can only like a tweet once
+    // id is a relation between the properties ids (used as `userId_tweetId`)
+    @@id([userId, tweetId])
+    @@index([userId])
+    @@index([tweetId])
 }
 
 // Necessary for Next auth
@@ -54,6 +65,7 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
     @@index([userId]) // needed for prisma configuration `relationMode = "prisma"`
 }
 
@@ -65,6 +77,13 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+
+    // Others non-Next Auth
+    tweets    Tweet[]
+    likes     Like[]
+    // Followers/follows
+    followers User[]  @relation(name: "Followers") // users that follows the current user
+    following User[]  @relation(name: "Followers") // users that current user is following
 }
 
 model VerificationToken {
