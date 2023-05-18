@@ -3,6 +3,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import IconHoverEffect from "./ui/IconHoverEffect";
 import { VscHome, VscAccount, VscSignOut, VscSignIn } from "react-icons/vsc";
+import { PROFILE_PATH } from "~/common/constants";
 
 function SideNav() {
   const session = useSession();
@@ -23,7 +24,7 @@ function SideNav() {
         </li>
         {user && (
           <li>
-            <Link href={`/profiles/${user.id}`}>
+            <Link href={`${PROFILE_PATH}/${user.id}`}>
               <IconHoverEffect>
                 <span className="flex items-center gap-4">
                   <VscAccount className="h-6 w-6" />
@@ -35,7 +36,8 @@ function SideNav() {
         )}
         {user ? (
           <li>
-            <button onClick={() => signOut()}>
+            {/* eslint-disable-next-line */}
+            <button onClick={() => void signOut()}>
               <IconHoverEffect>
                 <span className="flex items-center gap-4">
                   <VscSignOut className="h-6 w-6 fill-red-700" />
@@ -48,6 +50,7 @@ function SideNav() {
           </li>
         ) : (
           <li>
+            {/* eslint-disable-next-line */}
             <button onClick={() => signIn()}>
               <IconHoverEffect>
                 <span className="flex items-center gap-4">

@@ -11,7 +11,7 @@ export default function ProfileImage({
   src,
   className = "",
 }: ProfileImageProps) {
-  console.log(src)
+
   return (
     <div
       className={`relative h-12 w-12 overflow-hidden rounded-full ${className}`}

@@ -1,5 +1,5 @@
 export function dateTimeFormatter(date: Date) {
-  return new Intl.DateTimeFormat(undefined, { dateStyle: "short" }).format();
+  return new Intl.DateTimeFormat(undefined, { dateStyle: "short" }).format(date);
 }
 
 const pluralRule = new Intl.PluralRules();

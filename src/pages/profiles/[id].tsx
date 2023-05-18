@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import {
+import type {
   GetStaticPaths,
   GetStaticPropsContext,
   InferGetStaticPropsType,
@@ -10,15 +10,15 @@ import ErrorPage from "next/error";
 
 import { VscArrowLeft } from "react-icons/vsc";
 
-import IconHoverEffect from "~/components/ui/IconHoverEffect";
 import ProfileImage from "~/components/ui/ProfileImage";
+import { InfiniteTweetList } from "~/components/tweet";
+import IconHoverEffect from "~/components/ui/IconHoverEffect";
 import FollowUserButton from "~/components/tweet/FollowUserButton";
 
 /* Utils */
 import { api } from "~/utils/api";
 import { getPlural } from "~/common/utils";
 import { ssgUtil } from "~/server/api/utils/ssg.utils";
-import { InfiniteTweetList } from "~/components/tweet";
 
 const ProfilePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   id,
@@ -58,7 +58,7 @@ const ProfilePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       </Head>
       <header className="sticky top-0 z-10 flex items-center border-b bg-white px-4 py-2">
         <Link href=".." className="mr-2">
-          <IconHoverEffect>
+          <IconHoverEffect color="gray">
             <VscArrowLeft className="h-6 w-6" />
           </IconHoverEffect>
         </Link>

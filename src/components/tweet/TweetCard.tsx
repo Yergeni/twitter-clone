@@ -1,8 +1,10 @@
 import Link from "next/link";
 
-import { SerializedTweet } from "~/common/types";
 import { PROFILE_PATH } from "~/common/constants";
+
 import { dateTimeFormatter } from "~/common/utils";
+
+import type { SerializedTweet } from "~/common/types";
 
 import HeartLikeButton from "./HeartLikeButton";
 import ProfileImage from "../ui/ProfileImage";

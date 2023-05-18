@@ -1,8 +1,8 @@
-import { Prisma } from "@prisma/client";
-import { createTRPCContext } from "../trpc";
-import { inferAsyncReturnType } from "@trpc/server";
+import type { Prisma } from "@prisma/client";
+import type { createTRPCContext } from "../trpc";
+import type { inferAsyncReturnType } from "@trpc/server";
 
-import { SerializedTweet } from "~/common/types";
+import type { SerializedTweet } from "~/common/types";
 
 export async function getInfiniteTweets({
   whereClause,

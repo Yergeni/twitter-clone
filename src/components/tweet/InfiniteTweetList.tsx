@@ -1,9 +1,9 @@
-import { SerializedTweet } from "~/common/types";
-
 import InfiniteScroll from "react-infinite-scroll-component";
+
+import type { SerializedTweet } from "~/common/types";
+
 import TweetCard from "./TweetCard";
 import LoadingSpinner from "../ui/LoadingSpinner";
-import SideNav from "../SideNav";
 
 type InfiniteTweetListProps = {
   isLoading: boolean;

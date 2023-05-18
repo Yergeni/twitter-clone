@@ -1,20 +1,15 @@
-import {
-  FormEvent,
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 
 import Button from "../ui/Button";
 import ProfileImage from "../ui/ProfileImage";
 
-import { SerializedTweet } from "~/common/types";
+/* Types */
+import type { FormEvent } from "react";
+import type { SerializedTweet } from "~/common/types";
 
 /* Server */
 import { api } from "~/utils/api";
-import PagesManifestPlugin from "next/dist/build/webpack/plugins/pages-manifest-plugin";
 
 /**
  * Modifies the height of a passed text area element
@@ -86,7 +81,7 @@ function TweetForm() {
           ],
         };
       };
-      
+
       trpcUtils.tweet.infiniteTweets.setInfiniteData({}, createData);
     },
   });
