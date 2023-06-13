@@ -4,6 +4,7 @@ import type { SerializedTweet } from "~/common/types";
 
 import TweetCard from "./TweetCard";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import Link from "next/link";
 
 type InfiniteTweetListProps = {
   isLoading: boolean;
@@ -21,7 +22,22 @@ export default function InfiniteTweetList({
   fetchNewTweets,
 }: InfiniteTweetListProps) {
   if (isLoading) return <LoadingSpinner />;
-  if (hasError) return <h1>Error...</h1>;
+  if (hasError)
+    return (
+      <div className="flex items-center flex-col">
+        <h1 className="text-red-500">
+          Error... (NOTE: This app uses a free plan database that may be in
+          sleeping mode)
+        </h1>
+        <Link
+          className="underline text-blue-500"
+          href="https://planetscale.com/docs/concepts/database-sleeping"
+          target="_blank"
+        >
+          Read more
+        </Link>
+      </div>
+    );
 
   if (!tweets || tweets.length === 0) {
     return (
